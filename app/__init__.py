@@ -20,6 +20,14 @@ def create_app():
     app.config['JSON_SORT_KEYS'] = False
     app.config['AUTO_MIGRATE'] = os.getenv('AUTO_MIGRATE', 'False').lower() == 'true'
     
+    # Configuración de Cloudinary
+    from app.service.cloudinary_service import CloudinaryService
+    CloudinaryService.configure(
+        cloud_name=os.getenv('CLOUDINARY_CLOUD_NAME'),
+        api_key=os.getenv('CLOUDINARY_API_KEY'),
+        api_secret=os.getenv('CLOUDINARY_API_SECRET')
+    )
+    
     # Inicializar extensiones
     db.init_app(app)
     cors.init_app(app)

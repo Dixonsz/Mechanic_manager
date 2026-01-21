@@ -5,7 +5,7 @@ user_controller = Blueprint('user_controller', __name__, url_prefix='/api')
 
 @user_controller.route('/users', methods=['POST'])
 def create_user():
-    user = UserService.create_user(request.get_json())
+    user = UserService.create_user(request.get_json(force=True))
     return jsonify({'message': 'Usuario creado correctamente', 'user': user.to_dict()}), 201
 
 @user_controller.route('/users/<int:user_id>', methods=['GET'])
@@ -20,7 +20,7 @@ def get_all_users():
 
 @user_controller.route('/users/<int:user_id>', methods=['PUT'])
 def update_user(user_id):
-    user = UserService.update_user(user_id, request.get_json())
+    user = UserService.update_user(user_id, request.get_json(force=True))
     return jsonify({'message': 'Usuario actualizado correctamente', 'user': user.to_dict()}), 200
 
 @user_controller.route('/users/<int:user_id>', methods=['DELETE'])

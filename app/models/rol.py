@@ -1,6 +1,6 @@
 from app.extensions import db
 
-
+#Rol de usuario en el sistema, como administrador, mecánico, cliente, etc.
 class Rol(db.Model):
     __tablename__ = 'roles'
     id = db.Column(db.Integer, primary_key=True)

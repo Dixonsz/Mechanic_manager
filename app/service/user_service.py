@@ -12,8 +12,9 @@ class UserService:
         user =  User( 
             username=data['username'],
             email=data['email'],
-            password_hash=data['password_hash'],
+            password_hash=data.get('password_hash') or data.get('password'),
             is_active=data.get('is_active', True),
+            rol_id=data.get('rol_id')
          )
         return UserRepository.create(user)
     
@@ -32,7 +33,7 @@ class UserService:
             raise ValueError("Usuario no encontrado.")
         
         user.username = data.get('username', user.username)
-        user.password_hash = data.get('password_hash', user.password_hash)
+        user.password_hash = data.get('password_hash') or data.get('password') or user.password_hash
         user.email = data.get('email', user.email)
         user.is_active = data.get('is_active', user.is_active)
         
